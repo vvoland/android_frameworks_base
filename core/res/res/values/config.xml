@@ -3570,4 +3570,7 @@
     <!-- Component name for default assistant on this device -->
     <string name="config_defaultAssistantComponentName"></string>
 
+    <!-- Whether to disable any jack accessory detection -->
+    <bool name="config_disableJackAccessory">false</bool>
+
 </resources>

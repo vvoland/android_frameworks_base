@@ -85,6 +85,7 @@ final class WiredAccessoryManager implements WiredAccessoryCallbacks {
     private final InputManagerService mInputManager;
 
     private final boolean mUseDevInputEventForAudioJack;
+    private final boolean mDisableJackAccessory;
 
     public WiredAccessoryManager(Context context, InputManagerService inputManager) {
         PowerManager pm = (PowerManager)context.getSystemService(Context.POWER_SERVICE);
@@ -95,6 +96,8 @@ final class WiredAccessoryManager implements WiredAccessoryCallbacks {
 
         mUseDevInputEventForAudioJack =
                 context.getResources().getBoolean(R.bool.config_useDevInputEventForAudioJack);
+        mDisableJackAccessory =
+                context.getResources().getBoolean(R.bool.config_disableJackAccessory);
 
         mObserver = new WiredAccessoryObserver();
     }
@@ -153,6 +156,9 @@ final class WiredAccessoryManager implements WiredAccessoryCallbacks {
                     headset = 0;
                     break;
             }
+
+            if (mDisableJackAccessory)
+                headset = 0;
 
             updateLocked(NAME_H2W,
                 (mHeadsetState & ~(BIT_HEADSET | BIT_HEADSET_NO_MIC | BIT_LINEOUT)) | headset);
